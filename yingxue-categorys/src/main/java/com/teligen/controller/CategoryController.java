@@ -64,4 +64,10 @@ public class CategoryController {
 
     }
 
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id")Integer id){
+        log.info("需要删除的类别id:{}");
+        categoryService.deleteByPrimaryKey(id);
+    }
+
 }
