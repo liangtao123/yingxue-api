@@ -6,6 +6,7 @@ import com.teligen.dao.CategoryMapper;
 import com.teligen.entity.Category;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,7 +59,16 @@ public class CategoryService{
     }
 
     public Category update(Category category){
+        category.setUpdatedAt(new Date());
         categoryMapper.updateByPrimaryKeySelective(category);
         return  categoryMapper.selectByPrimaryKey(category.getId());
+    }
+
+    public Category addCategory(Category category){
+        Date date = new Date();
+        category.setCreatedAt(date);
+        category.setUpdatedAt(date);
+        categoryMapper.insertSelective(category);
+        return categoryMapper.selectByPrimaryKey(category.getId());
     }
 }
