@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teligen.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.teligen.entity.User">
+    <!--@mbg.generated-->
+    <!--@Table `user`-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="phone_linked" jdbcType="BOOLEAN" property="phoneLinked" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="wechat_linked" jdbcType="BOOLEAN" property="wechatLinked" />
+    <result column="following_count" jdbcType="INTEGER" property="followingCount" />
+    <result column="followers_count" jdbcType="INTEGER" property="followersCount" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, avatar, intro, phone, phone_linked, openid, wechat_linked, following_count, 
+    followers_count, created_at, updated_at, deleted_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from `user`
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from `user`
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.teligen.entity.User" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `user` (`name`, avatar, intro, 
+      phone, phone_linked, openid, 
+      wechat_linked, following_count, followers_count, 
+      created_at, updated_at, deleted_at
+      )
+    values (#{name,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{phoneLinked,jdbcType=BOOLEAN}, #{openid,jdbcType=VARCHAR}, 
+      #{wechatLinked,jdbcType=BOOLEAN}, #{followingCount,jdbcType=INTEGER}, #{followersCount,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{deletedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.teligen.entity.User" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `user`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="phoneLinked != null">
+        phone_linked,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="wechatLinked != null">
+        wechat_linked,
+      </if>
+      <if test="followingCount != null">
+        following_count,
+      </if>
+      <if test="followersCount != null">
+        followers_count,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="deletedAt != null">
+        deleted_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneLinked != null">
+        #{phoneLinked,jdbcType=BOOLEAN},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatLinked != null">
+        #{wechatLinked,jdbcType=BOOLEAN},
+      </if>
+      <if test="followingCount != null">
+        #{followingCount,jdbcType=INTEGER},
+      </if>
+      <if test="followersCount != null">
+        #{followersCount,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.teligen.entity.User">
+    <!--@mbg.generated-->
+    update `user`
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneLinked != null">
+        phone_linked = #{phoneLinked,jdbcType=BOOLEAN},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatLinked != null">
+        wechat_linked = #{wechatLinked,jdbcType=BOOLEAN},
+      </if>
+      <if test="followingCount != null">
+        following_count = #{followingCount,jdbcType=INTEGER},
+      </if>
+      <if test="followersCount != null">
+        followers_count = #{followersCount,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.teligen.entity.User">
+    <!--@mbg.generated-->
+    update `user`
+    set `name` = #{name,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      phone_linked = #{phoneLinked,jdbcType=BOOLEAN},
+      openid = #{openid,jdbcType=VARCHAR},
+      wechat_linked = #{wechatLinked,jdbcType=BOOLEAN},
+      following_count = #{followingCount,jdbcType=INTEGER},
+      followers_count = #{followersCount,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{deletedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryByLikeAndPage" resultMap="BaseResultMap">
+        select * from user
+        <where>
+          <if test="id != null">
+            id=#{id,jdbcType=INTEGER}
+          </if>
+          <if test="name != null">
+            and name like concat('%',#{name},'%')
+          </if>
+          <if test="phone != null">
+            and phone=#{phone,jdbcType=VARCHAR}
+          </if>
+        </where>
+    limit #{start,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    </select>
+
+  <select id="queryCountByLikeAndPage" resultType="int">
+    select count(id)
+    from user
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="name != null">
+        and name like concat('%', #{name}, '%')
+      </if>
+      <if test="phone != null">
+        and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>
