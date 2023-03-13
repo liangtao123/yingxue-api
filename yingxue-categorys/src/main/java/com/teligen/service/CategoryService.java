@@ -56,4 +56,9 @@ public class CategoryService{
     public List<Category> queryByFirstLevel() {
         return categoryMapper.findAllFirstLevelCatgorys();
     }
+
+    public Category update(Category category){
+        categoryMapper.updateByPrimaryKeySelective(category);
+        return  categoryMapper.selectByPrimaryKey(category.getId());
+    }
 }

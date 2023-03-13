@@ -1,6 +1,7 @@
 package com.teligen.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,7 @@ public class Category {
     /**
     * 父级分类id
     */
+    @JsonProperty("parent_id")
     private Integer parentId;
 
     private Date createdAt;

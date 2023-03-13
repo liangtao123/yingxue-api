@@ -2,10 +2,10 @@ package com.teligen.controller;
 
 import com.teligen.entity.Category;
 import com.teligen.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import utils.JacksonUtils;
 
 import java.util.List;
 
@@ -16,16 +16,30 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/categories")
+@Slf4j
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
+
+    /**
+     * 获取所有视频类别
+     * @return
+     */
     @GetMapping
     public List<Category>categories(){
         List<Category>categories=categoryService.queryByFirstLevel();
         return categories;
     }
 
+    @PatchMapping("{id}")
+    public Category update(@PathVariable("id")Integer id,@RequestBody Category category){
+        //打印更新类别日志
+        log.info("修改的类别id为:{}",id);
+        log.info("修改的类别信息为:{}", JacksonUtils.writeValue(category));
+        category.setId(id);
+        return categoryService.update(category);
+    }
 
 }
