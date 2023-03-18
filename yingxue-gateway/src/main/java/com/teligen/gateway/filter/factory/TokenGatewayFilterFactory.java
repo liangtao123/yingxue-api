@@ -1,6 +1,7 @@
 package com.teligen.gateway.filter.factory;
 
 import com.teligen.constants.RedisPrefix;
+import com.teligen.exceptions.IllegalTokenException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -52,7 +53,7 @@ public class TokenGatewayFilterFactory extends AbstractGatewayFilterFactory<Toke
 
                     //3.到redis来查看token是否存在
                     if (!redisTemplate.hasKey(RedisPrefix.TOKEN_KEY + token)) {
-                        throw new RuntimeException("不合法的令牌,redis中不存在相关令牌");
+                        throw new IllegalTokenException("不合法的令牌,redis中不存在相关令牌");
                     }
                 }
                 return chain.filter(exchange);
