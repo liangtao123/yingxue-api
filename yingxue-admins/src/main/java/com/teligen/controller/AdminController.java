@@ -1,8 +1,10 @@
 package com.teligen.controller;
 
+import com.teligen.constant.RedisPrefix;
 import com.teligen.entity.Admin;
 import com.teligen.entity.AdminDTO;
 import com.teligen.service.AdminService;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -26,12 +28,14 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class AdminController {
 
-    @Autowired
     private AdminService adminService;
-
-    @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    public AdminController(AdminService adminService, RedisTemplate redisTemplate) {
+        this.adminService = adminService;
+        this.redisTemplate = redisTemplate;
+    }
 
     @PostMapping("/tokens")
     public Map<String,String>tokens(@RequestBody Admin admin, HttpSession session){
@@ -42,8 +46,7 @@ public class AdminController {
         String token=session.getId();
 
         //登陆成功，存token
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.opsForValue().set(token,adminDB,1, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(RedisPrefix.TOKEN_KEY+token,adminDB,1, TimeUnit.HOURS);
 
         result.put("token",token);
         return result;
@@ -52,8 +55,7 @@ public class AdminController {
     @GetMapping("/admin-user")
     public AdminDTO admin(String token){
         log.info("当前token信息为:{}",token);
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        Admin admin =(Admin) redisTemplate.opsForValue().get(token);
+        Admin admin =(Admin) redisTemplate.opsForValue().get(RedisPrefix.TOKEN_KEY+token);
         AdminDTO adminDTO=new AdminDTO();
         BeanUtils.copyProperties(admin,adminDTO);
         return adminDTO;
@@ -66,8 +68,7 @@ public class AdminController {
      */
     @DeleteMapping("/tokens/{token}")
     public void logOut(@PathVariable("token")String token){
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.delete(token);
+        redisTemplate.delete(RedisPrefix.TOKEN_KEY+token);
     }
 }
 
