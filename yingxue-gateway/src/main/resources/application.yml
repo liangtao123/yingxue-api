@@ -16,6 +16,7 @@ spring:
             - Path=/admin/demos,/admin/tokens,/admin/admin-user,/admin/tokens/** #采用这种路径断言办法，请求进入网关断言，但是不能已这种方式发送给controller，因为没有此路径的请求
           filters:
             - StripPrefix=1 #去掉请求前缀的filter =写int类型 1代表去掉1级前缀 2代表去掉两级
+            - Token=false
         #categary router
         - id: categary_router
           uri: lb://API-CATEGORYS #负载均衡写法
@@ -23,6 +24,7 @@ spring:
             - Path=/admin/categories/**
           filters:
             - StripPrefix=1 #去掉请求前缀的filter =写int类型 1代表去掉1级前缀 2代表去掉两级
+            - Token=true
         #users router
         - id: users_router
           uri: lb://API-USERS #负载均衡写法
@@ -30,6 +32,7 @@ spring:
             - Path=/admin/users/**
           filters:
             - StripPrefix=1 #去掉请求前缀的filter =写int类型 1代表去掉1级前缀 2代表去掉两级
+            - Token=true
         #videos router
         - id: videos_router
           uri: lb://API-VIDEOS #负载均衡写法
@@ -37,9 +40,13 @@ spring:
             - Path=/admin/videos/**
           filters:
             - StripPrefix=1 #去掉请求前缀的filter =写int类型 1代表去掉1级前缀 2代表去掉两级
+            - Token=true
       globalcors: ##跨域处理
         cors-configurations:
           '[/**]':
             allowedOrigins: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
+  redis:
+    host: localhost
+    port: 6379
