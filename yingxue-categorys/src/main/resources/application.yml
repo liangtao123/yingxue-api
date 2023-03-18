@@ -23,4 +23,4 @@ mybatis:
   # 日志
 logging:
   level:
-    com.wangze.dao: debug
+    com.teligen.dao: debug
